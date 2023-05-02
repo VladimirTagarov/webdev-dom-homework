@@ -74,22 +74,25 @@
     const listElement = document.getElementById('list');
     const nameInputElement = document.getElementById('name-input');
     const textInputElement = document.getElementById('text-input');
-     
-    let inputDate = new Date();
-        let dayDate = inputDate.getDate();
-    if (dayDate < 10) {
-      dayDate = '0' + dayDate;
-    };
-    let monthDate = inputDate.getMonth();
-    monthDate += 1;
-    if (monthDate < 10) {
-      monthDate = '0' + monthDate;
-    };
-    let yearDate = inputDate.getFullYear();
-    yearDate = yearDate - 2000;
-   
-    let fullDate = dayDate + "." + monthDate + "." + yearDate + " " + inputDate.getHours() + ':' + inputDate.getMinutes();
-       
+
+    function fullDate() {
+      let inputDate = new Date();
+          let dayDate = inputDate.getDate();
+      if (dayDate < 10) {
+        dayDate = '0' + dayDate;
+      };
+      let monthDate = inputDate.getMonth();
+      monthDate += 1;
+      if (monthDate < 10) {
+        monthDate = '0' + monthDate;
+      };
+      let yearDate = inputDate.getFullYear();
+      yearDate = yearDate - 2000;
+    
+      return dayDate + "." + monthDate + "." + yearDate + " " + inputDate.getHours() + ':' + inputDate.getMinutes();
+      }
+    fullDate()
+
     listElement.innerHTML;
 
     buttonElement.addEventListener('click', () => {
@@ -111,7 +114,7 @@
       listElement.innerHTML = oldListHtml + `<li class="comment">
           <div class="comment-header">
             ${nameInputElement.value}
-            <div>${fullDate}</div>
+            <div>${fullDate(new Date)}</div>
           </div>
           <div class="comment-body">
          
@@ -126,8 +129,6 @@
           </div>
         </li>`;
     });
-
-
-    
+ 
   </script>
 </html>
