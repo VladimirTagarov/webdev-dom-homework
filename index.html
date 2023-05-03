@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <ul id="list" class="comments">
-        <li class="comment">
+        <!-- <li class="comment">
           <div class="comment-header">
             <div>Глеб Фокин</div>
             <div>12.02.22 12:18</div>
@@ -42,7 +42,7 @@
               <button class="like-button -active-like"></button>
             </div>
           </div>
-        </li>
+        </li> -->
       </ul>
       <div class="add-form">
         <input
@@ -74,6 +74,7 @@
     const listElement = document.getElementById('list');
     const nameInputElement = document.getElementById('name-input');
     const textInputElement = document.getElementById('text-input');
+    const likesCounterElements = document.querySelectorAll('.likes-counter')
     // Добавил функцию для того чтоб время комментариев отображалось корректно
 
     function fullDate() {
@@ -95,14 +96,99 @@
     fullDate()
 
 
-    listElement.innerHTML;
+    
+    const cards = [
+      {
+      name: "Глеб Фокин",
+      time: "12.02.22 12:18",
+      comment: "Это будет первый комментарий на этой странице",
+      likesCounter: 3,
+      activeLike: false,
+      class: ''
+      },
+      {
+      name: "Варвара Н.",
+      time: "13.02.22 19:22",
+      comment: "Мне нравится как оформлена эта страница! ❤",
+      likesCounter: 75,
+      activeLike: true,
+      class: '-active-like'
+      }
+    ];
+
+    const initAddLikesListeners = () => {
+      const likesCounterElements = document.querySelectorAll('.likes-counter')
+      const addLikesElements = document.querySelectorAll(".like-button");
+      // const likesCounterElement = likesCounterElements.dataset.index;
+
+      for (const addLikesElement of addLikesElements) {
+        addLikesElement.addEventListener("click", () => {
+          // if (!cards[activeLike]) {
+          // const card = cards[likesCounterElement.dataset.index];
+          // card.likesCounter = card.activeLike ? card.likesCounter - 1 : card.likesCounter + 1;
+          // card.class = !card.class;
+          addLikesElement.classList.add("-active-like");
+        
+          // }
+          // else {
+          // addLikesElement.classList.remove("-active-like");
+          // cards[likesCounter]--;
+          // }
+          // addLikesElement.classList.remove("-active-like");
+          // const card = cards[likesCounterElement.dataset.index];
+          // if (card.activeLike = false) {
+          //   addLikesElement.classList.add("-active-like");
+          // }
+          // addLikesElement.classList.remove("-active-like");
+              
+          
+          // renderCards();
+        });       
+
+      };
+      
+    };
+  
+    initAddLikesListeners();
+
+    const renderCards = () => {
+      const cardsHTML = cards
+      .map((card, index) => {
+        return `<li class="comment">
+          <div class="comment-header">
+            ${card.name}
+            <div>${card.time}</div>
+          </div>
+          <div class="comment-body">
+         
+              ${card.comment}
+        
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span data-index="${index} class="likes-counter">${card.likesCounter}</span>
+              <button class="like-button ${card.class}"></button>
+            </div>
+          </div>
+        </li>`;
+      })
+      .join("");
+      listElement.innerHTML = cardsHTML;
+      initAddLikesListeners();
+    };
+
+    renderCards();
+
+
+
+
 
     buttonElement.addEventListener('click', () => {
       nameInputElement.classList.remove("error");
       textInputElement.classList.remove("error");
       if (nameInputElement.value ==='') {
         nameInputElement.classList.add("error");
-        nameInputElement.value.classList.add("comment-text");
+        // nameInputElement.value.classList.add("comment-text");
 
         return;
       }
@@ -112,25 +198,43 @@
         return;
       }
 
-      const oldListHtml = listElement.innerHTML;
-      listElement.innerHTML = oldListHtml + `<li class="comment">
-          <div class="comment-header">
-            ${nameInputElement.value}
-            <div>${fullDate(new Date)}</div>
-          </div>
-          <div class="comment-body">
+      cards.push({
+      name: nameInputElement.value,
+      time: fullDate(new Date),
+      comment: textInputElement.value,
+      likesCounter: 0,
+      activeLike: true
+
+      });
+      renderCards();
+
+      // const oldListHtml = listElement.innerHTML;
+      // listElement.innerHTML = oldListHtml + `<li class="comment">
+      //     <div class="comment-header">
+      //       ${nameInputElement.value}
+      //       <div>${fullDate(new Date)}</div>
+      //     </div>
+      //     <div class="comment-body">
          
-              ${textInputElement.value}
+      //         ${textInputElement.value}
         
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">0</span>
-              <button class="like-button"></button>
-            </div>
-          </div>
-        </li>`;
+      //     </div>
+      //     <div class="comment-footer">
+      //       <div class="likes">
+      //         <span class="likes-counter">0</span>
+      //         <button class="like-button"></button>
+      //       </div>
+      //     </div>
+      //   </li>`;
+      //   initAddLikesListeners();
     });
+  
+
+
+
+
+
+
  
   </script>
 </html>
