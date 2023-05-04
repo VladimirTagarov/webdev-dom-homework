@@ -94,9 +94,7 @@
       return dayDate + "." + monthDate + "." + yearDate + " " + inputDate.getHours() + ':' + inputDate.getMinutes();
       }
     fullDate()
-
-
-    
+  
     const cards = [
       {
       name: "Глеб Фокин",
@@ -119,30 +117,24 @@
     const initAddLikesListeners = () => {
       const likesCounterElements = document.querySelectorAll('.likes-counter')
       const addLikesElements = document.querySelectorAll(".like-button");
-      // const likesCounterElement = likesCounterElements.dataset.index;
 
       for (const addLikesElement of addLikesElements) {
         addLikesElement.addEventListener("click", () => {
-          // if (!cards[activeLike]) {
-          // const card = cards[likesCounterElement.dataset.index];
-          // card.likesCounter = card.activeLike ? card.likesCounter - 1 : card.likesCounter + 1;
-          // card.class = !card.class;
-          addLikesElement.classList.add("-active-like");
-        
-          // }
-          // else {
-          // addLikesElement.classList.remove("-active-like");
-          // cards[likesCounter]--;
-          // }
-          // addLikesElement.classList.remove("-active-like");
-          // const card = cards[likesCounterElement.dataset.index];
-          // if (card.activeLike = false) {
-          //   addLikesElement.classList.add("-active-like");
-          // }
-          // addLikesElement.classList.remove("-active-like");
-              
+          const indexElement = addLikesElement.dataset.index;
+          const currentElement = cards[indexElement];
           
-          // renderCards();
+          
+       
+          if (currentElement.class === '-active-like') {
+            currentElement.likesCounter --;
+            currentElement.class = '';         
+          }
+          else {
+            currentElement.likesCounter ++;
+          currentElement.class = '-active-like';
+          };
+                   
+          renderCards();
         });       
 
       };
@@ -166,8 +158,8 @@
           </div>
           <div class="comment-footer">
             <div class="likes">
-              <span data-index="${index} class="likes-counter">${card.likesCounter}</span>
-              <button class="like-button ${card.class}"></button>
+              <span class="likes-counter">${card.likesCounter}</span>
+              <button class="like-button ${card.class}" data-index="${index}"></button>
             </div>
           </div>
         </li>`;
@@ -179,16 +171,12 @@
 
     renderCards();
 
-
-
-
-
     buttonElement.addEventListener('click', () => {
       nameInputElement.classList.remove("error");
       textInputElement.classList.remove("error");
       if (nameInputElement.value ==='') {
         nameInputElement.classList.add("error");
-        // nameInputElement.value.classList.add("comment-text");
+   
 
         return;
       }
@@ -228,13 +216,5 @@
       //   </li>`;
       //   initAddLikesListeners();
     });
-  
-
-
-
-
-
-
- 
   </script>
 </html>
