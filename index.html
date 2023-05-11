@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <ul id="list" class="comments">
-        <li class="comment">
+        <!-- <li class="comment">
           <div class="comment-header">
             <div>Глеб Фокин</div>
             <div>12.02.22 12:18</div>
@@ -42,7 +42,7 @@
               <button class="like-button -active-like"></button>
             </div>
           </div>
-        </li>
+        </li> -->
       </ul>
       <div class="add-form">
         <input
@@ -74,33 +74,119 @@
     const listElement = document.getElementById('list');
     const nameInputElement = document.getElementById('name-input');
     const textInputElement = document.getElementById('text-input');
-    
+    const likesCounterElements = document.querySelectorAll('.likes-counter');
+    // Добавил функцию для того чтоб время комментариев отображалось корректно
+
+    function fullDate() {
+      let inputDate = new Date();
+          let dayDate = inputDate.getDate();
+      if (dayDate < 10) {
+        dayDate = '0' + dayDate;
+      };
+      let monthDate = inputDate.getMonth();
+      monthDate += 1;
+      if (monthDate < 10) {
+        monthDate = '0' + monthDate;
+      };
+      let yearDate = inputDate.getFullYear();
+      yearDate = yearDate-2000;
+      let hourDate = inputDate.getHours();
+      if (hourDate < 10) {
+        hourDate = '0' + hourDate;
+      };
+      let minutesDate = inputDate.getMinutes();
+      if (minutesDate < 10) {
+        minutesDate = '0' + minutesDate;
+      };
+
+      return dayDate + "." + monthDate + "." + yearDate + " " + hourDate + ':' + minutesDate;
+      }
+    fullDate()
+  
+    const cards = [
+      {
+      name: "Глеб Фокин",
+      time: "12.02.22 12:18",
+      comment: "Это будет первый комментарий на этой странице",
+      likesCounter: 3,
+      activeLike: false,
+      class: ''
+      },
+      {
+      name: "Варвара Н.",
+      time: "13.02.22 19:22",
+      comment: "Мне нравится как оформлена эта страница! ❤",
+      likesCounter: 75,
+      activeLike: true,
+      class: '-active-like'
+      }
+    ];
+
+    const initAddLikesListeners = () => {
+      const likesCounterElements = document.querySelectorAll('.likes-counter')
+      const addLikesElements = document.querySelectorAll(".like-button");
+
+      for (const addLikesElement of addLikesElements) {
+        addLikesElement.addEventListener("click", (event) => {
+          const indexElement = addLikesElement.dataset.index;
+          const currentElement = cards[indexElement];
+          event.stopPropagation();
  
-    let inputDate = new Date();
-    
-    let dayDate = inputDate.getDate();
-    if (dayDate < 10) {
-      dayDate = '0' + dayDate;
+          if (currentElement.class === '-active-like') {
+            currentElement.likesCounter --;
+            currentElement.class = '';         
+          }
+          else {
+            currentElement.likesCounter ++;
+          currentElement.class = '-active-like';
+          };
+                   
+          renderCards();
+        });       
+
+      };
+      
     };
+  
+    initAddLikesListeners();
     
-    let monthDate = inputDate.getMonth();
-    monthDate += 1;
-    if (monthDate < 10) {
-      monthDate = '0' + monthDate;
+
+    const renderCards = () => {
+      const cardsHTML = cards
+      .map((card, index) => {
+        return `<li data-comment="${card.comment}" data-index="${index}" class="comment">
+          <div data-name="${card.name}" class="comment-header">
+            ${card.name}
+            <div>${card.time}</div>
+          </div>
+          <div data-comment="${card.comment}" data-index="${index}" class="comment-body">
+         
+              ${card.comment}
+        
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter">${card.likesCounter}</span>
+              <button class="like-button ${card.class}" data-index="${index}"></button>
+            </div>
+          </div>
+        </li>`;
+      })
+      .join("");
+      listElement.innerHTML = cardsHTML;
+      initAddLikesListeners();
+      initAddRecommentListeners();
     };
-    let yearDate = inputDate.getFullYear();
-    yearDate = yearDate - 2000;
-   
-    let fullDate = dayDate + "." + monthDate + "." + yearDate + " " + inputDate.getHours() + ':' + inputDate.getMinutes();
-       
-    listElement.innerHTML;
+
+    renderCards();
 
     buttonElement.addEventListener('click', () => {
+     
       nameInputElement.classList.remove("error");
       textInputElement.classList.remove("error");
+
       if (nameInputElement.value ==='') {
         nameInputElement.classList.add("error");
-        nameInputElement.value.classList.add("comment-text");
 
         return;
       }
@@ -110,27 +196,62 @@
         return;
       }
 
-      const oldListHtml = listElement.innerHTML;
-      listElement.innerHTML = oldListHtml + `<li class="comment">
-          <div class="comment-header">
-            ${nameInputElement.value}
-            <div>${fullDate}</div>
-          </div>
-          <div class="comment-body">
-         
-              ${textInputElement.value}
-        
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">0</span>
-              <button class="like-button"></button>
-            </div>
-          </div>
-        </li>`;
+      cards.push({
+      name: nameInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
+      time: fullDate(new Date),
+      comment: textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
+      likesCounter: 0,
+      activeLike: true
+
+      });
+      nameInputElement.value = "";
+      textInputElement.value = "";
+      renderCards();
     });
 
+    function initAddRecommentListeners() {
 
-    
+      const commentElements = document.querySelectorAll('.comment');
+      const commentHeaderElements = document.querySelectorAll('.comment-header');
+
+      for (const commentElement of commentElements) {
+        commentElement.addEventListener('click', () => {
+      const commentBodyElement = commentElement.dataset.comment;
+      const indexElement = commentElement.dataset.index;
+      const curElement = cards[indexElement];
+      const cardNameElement = commentElement.dataset.name;
+      textInputElement.value = `<${commentBodyElement}
+       ${curElement.name}, 
+       `;
+
+      });
+    };
+   
+  };
+  initAddRecommentListeners();
+  
+
+
+
+      // const oldListHtml = listElement.innerHTML;
+      // listElement.innerHTML = oldListHtml + `<li class="comment">
+      //     <div class="comment-header">
+      //       ${nameInputElement.value}
+      //       <div>${fullDate(new Date)}</div>
+      //     </div>
+      //     <div class="comment-body">
+         
+      //         ${textInputElement.value}
+        
+      //     </div>
+      //     <div class="comment-footer">
+      //       <div class="likes">
+      //         <span class="likes-counter">0</span>
+      //         <button class="like-button"></button>
+      //       </div>
+      //     </div>
+      //   </li>`;
+      //   initAddLikesListeners();
+   
   </script>
 </html>
