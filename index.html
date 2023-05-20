@@ -77,7 +77,7 @@
     const likesCounterElements = document.querySelectorAll('.likes-counter');
     // Добавил функцию для того чтоб время комментариев отображалось корректно
 
-    let commentaries = [];
+    let cards = [];
     const fetchPromise = fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
       method: "GET"
     });
@@ -87,13 +87,13 @@
         const appComments = responseData.comments.map((comment) => {
           return {
             name: comment.author.name,
-            time: new Date(comment.date),
+            time: fullDate(comment.date),
             text: comment.text,
             likesCounter: comment.likes,
             activeLike: false, 
           };
         });
-        commentaries = appComments;
+        cards = appComments;
         console.log(responseData);
         console.log(response);
         renderCards();
@@ -127,24 +127,24 @@
       }
     fullDate()
   
-    const cards = [
-      {
-      name: "Глеб Фокин",
-      time: "12.02.22 12:18",
-      comment: "Это будет первый комментарий на этой странице",
-      likesCounter: 3,
-      activeLike: false,
-      class: ''
-      },
-      {
-      name: "Варвара Н.",
-      time: "13.02.22 19:22",
-      comment: "Мне нравится как оформлена эта страница! ❤",
-      likesCounter: 75,
-      activeLike: true,
-      class: '-active-like'
-      }
-    ];
+    // const cards = [
+    //   {
+    //   name: "Глеб Фокин",
+    //   time: "12.02.22 12:18",
+    //   comment: "Это будет первый комментарий на этой странице",
+    //   likesCounter: 3,
+    //   activeLike: false,
+    //   class: ''
+    //   },
+    //   {
+    //   name: "Варвара Н.",
+    //   time: "13.02.22 19:22",
+    //   comment: "Мне нравится как оформлена эта страница! ❤",
+    //   likesCounter: 75,
+    //   activeLike: true,
+    //   class: '-active-like'
+    //   }
+    // ];
 
     const initAddLikesListeners = () => {
       const likesCounterElements = document.querySelectorAll('.likes-counter')
@@ -178,14 +178,14 @@
     const renderCards = () => {
       const cardsHTML = cards
       .map((card, index) => {
-        return `<li data-comment="${card.comment}" data-index="${index}" class="comment">
+        return `<li data-comment="${card.text}" data-index="${index}" class="comment">
           <div data-name="${card.name}" class="comment-header">
             ${card.name}
-            <div>${card.time}</div>
+            <div>${fullDate(card.date)}</div>
           </div>
-          <div data-comment="${card.comment}" data-index="${index}" class="comment-body">
+          <div data-comment="${card.text}" data-index="${index}" class="comment-body">
          
-              ${card.comment}
+              ${card.text}
         
           </div>
           <div class="comment-footer">
@@ -245,7 +245,7 @@
       const jsonPromise = response.json();
       jsonPromise.then((responseData) => {
     
-        commentaries = responseData.comments;
+        cards = responseData.comments;
         renderCards();
       });
     });
@@ -260,13 +260,13 @@
         const appComments = responseData.comments.map((comment) => {
           return {
             name: comment.author.name,
-            time: new Date(comment.date),
+            time: fullDate(comment.date),
             text: comment.text,
             likesCounter: comment.likes,
             activeLike: false, 
           };
         });
-        commentaries = appComments;
+        cards = appComments;
         console.log(responseData);
         renderCards();
       });
