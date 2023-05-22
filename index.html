@@ -44,6 +44,7 @@
           </div>
         </li> -->
       </ul>
+      <h4 class="article" id="article">Пожалуйста, подождите комментарии загружаются</h4>
       <div class="add-form">
         <input
           type="text" id="name-input"
@@ -75,15 +76,21 @@
     const nameInputElement = document.getElementById('name-input');
     const textInputElement = document.getElementById('text-input');
     const likesCounterElements = document.querySelectorAll('.likes-counter');
+    const articleElement = document.getElementById('article');
     // Добавил функцию для того чтоб время комментариев отображалось корректно
 
     let cards = [];
-    const fetchPromise = fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
+    function fetchFunc() {
+    
+    return fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
       method: "GET"
-    });
-    fetchPromise.then((response) => {
-      const jsonPromise = response.json();
-      jsonPromise.then((responseData) => {
+    })
+    .then((response) => {
+      return response.json();
+    })
+
+    
+    .then((responseData) => {
         const appComments = responseData.comments.map((comment) => {
           return {
             name: comment.author.name,
@@ -92,13 +99,18 @@
             likesCounter: comment.likes,
             activeLike: false, 
           };
-        });
+        })        
         cards = appComments;
-        console.log(responseData);
-        console.log(response);
+        
         renderCards();
-      });
-    });
+      })
+      .then(() => {
+      articleElement.style.display = "none";
+    })
+      
+   };
+
+  fetchFunc();
 
 
     function fullDate(date) {
@@ -161,8 +173,8 @@
             currentElement.class = '';         
           }
           else {
-            currentElement.likesCounter ++;
-          currentElement.class = '-active-like';
+              currentElement.likesCounter ++;
+              currentElement.class = '-active-like';    
           };
                    
           renderCards();
@@ -218,7 +230,10 @@
         textInputElement.classList.add("error");
 
         return;
-      }
+      };
+
+      buttonElement.disabled = true;
+      buttonElement.textContent = "Ваши данные загружаются";
 
       // cards.push({
       // name: nameInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
@@ -228,45 +243,51 @@
       // activeLike: true
 
       // });
-      // nameInputElement.value = "";
-      // textInputElement.value = "";
+      
 
       const fetchProm = fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
       method: "POST",
       body: JSON.stringify({
         name: nameInputElement.value,
-        date: new Date(fullDate),
         text: textInputElement.value,
-        likesCounter: 0,
-        activeLike: false, 
       }),
     });
     fetchProm.then((response) => {
-      const jsonPromise = response.json();
-      jsonPromise.then((responseData) => {
+      response.json()
+    })
+    .then((responseData) => {
+        return fetchFunc();
     
-    const fetchPromi = fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
-      method: "GET"
-    });
-    fetchPromi.then((response) => {
-      const jsonPromise = response.json();
-      jsonPromise.then((responseData) => {
-        const appComments = responseData.comments.map((comment) => {
-          return {
-            name: comment.author.name,
-            date: fullDate(comment.date),
-            text: comment.text,
-            likesCounter: comment.likes,
-            activeLike: false, 
-          };
-        });
-        cards = appComments;
-        renderCards();
-      });
-    });
+    // const fetchPromi = fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
+    //   method: "GET"
+    // });
+    // fetchPromi.then((response) => {
+    //   const jsonPromise = response.json();
+    //   jsonPromise.then((responseData) => {
+    //     const appComments = responseData.comments.map((comment) => {
+    //       return {
+    //         name: comment.author.name,
+    //         date: fullDate(comment.date),
+    //         text: comment.text,
+    //         likesCounter: comment.likes,
+    //         activeLike: false, 
+    //       };
+    //     });
+    //     cards = appComments;
+    //     renderCards();
+    //   });
+    // });
+  })
+  .then(() => {
+  buttonElement.disabled = false;
+  buttonElement.textContent = "Написать";
   });
+
+nameInputElement.value = "";
+textInputElement.value = "";
+
 });
-});
+
     
 
     function initAddRecommentListeners() {
