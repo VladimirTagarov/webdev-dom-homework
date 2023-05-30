@@ -275,11 +275,13 @@
   buttonElement.textContent = "Написать";
   nameInputElement.value = "";
   textInputElement.value = "";
+  fetchFunc();
   })
   .catch((error) => {
+    alert('Кажется что-то пошло не так, проверьте интернет-соединение');
     console.warn("error");
   });
-  fetchFunc();
+  
   buttonElement.disabled = false;
   buttonElement.textContent = "Написать";
   
