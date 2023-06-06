@@ -1,5 +1,6 @@
     import { fetchFunc, fetchProm } from "./api.js";
-    import { renderCards } from "./renderCards.js";
+    import { renderCards } from "./render.js";
+    import { cards } from "./api.js";
     
     const buttonElement = document.getElementById('add-button');
     const listElement = document.getElementById('list');
@@ -8,11 +9,11 @@
     const likesCounterElements = document.querySelectorAll('.likes-counter');
     const articleElement = document.getElementById('article');
 
-    let cards = [];
+    // let cards = [];
    
 
 
-    function fullDate(date) {
+    export function fullDate(date) {
       let inputDate = new Date(date);
           let dayDate = inputDate.getDate();
       if (dayDate < 10) {
@@ -38,54 +39,33 @@
       }
     fullDate()
   
-    const initAddLikesListeners = () => {
-      const likesCounterElements = document.querySelectorAll('.likes-counter')
-      const addLikesElements = document.querySelectorAll(".like-button");
 
-      for (const addLikesElement of addLikesElements) {
-        addLikesElement.addEventListener("click", (event) => {
-          const indexElement = addLikesElement.dataset.index;
-          const currentElement = cards[indexElement];
-          event.stopPropagation();
- 
-          if (currentElement.class === '-active-like') {
-            currentElement.likesCounter --;
-            currentElement.class = '';         
-          }
-          else {
-              currentElement.likesCounter ++;
-              currentElement.class = '-active-like';    
-          };
-                   
-          renderCards(cards);
-        });       
-
-      };
-      
-    };
-  
-    initAddLikesListeners();
      
+    buttonElement.addEventListener('click', () => {
+     
+      nameInputElement.classList.remove("error");
+      textInputElement.classList.remove("error");
 
-    function initAddRecommentListeners() {
+      if (nameInputElement.value ==='') {
+        nameInputElement.classList.add("error");
 
-      const commentElements = document.querySelectorAll('.comment');
-      const commentHeaderElements = document.querySelectorAll('.comment-header');
+        return;
+      }
+        else if (textInputElement.value ==='') {
+        textInputElement.classList.add("error");
 
-      for (const commentElement of commentElements) {
-        commentElement.addEventListener('click', () => {
-      const commentBodyElement = commentElement.dataset.comment;
-      const indexElement = commentElement.dataset.index;
-      const curElement = cards[indexElement];
-      const cardNameElement = commentElement.dataset.name;
-      textInputElement.value = `<${commentBodyElement}
-       ${curElement.name}, 
-       `;
+        return;
+      };
 
-      });
-    };
-   
-  };
-  initAddRecommentListeners();
+      buttonElement.disabled = true;
+      buttonElement.textContent = "Ваши данные загружаются";
+
+      fetchProm();
+    });
+
+
+
+  // export { initAddLikesListeners };
+  // export {initAddRecommentListeners};
   
    
