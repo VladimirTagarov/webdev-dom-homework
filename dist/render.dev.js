@@ -3,8 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.renderCards = void 0;
-// import { initAddLikesListeners } from "./main.js";
+exports.initAddRecommentListeners = initAddRecommentListeners;
+exports.initAddLikesListeners = exports.renderCards = void 0;
+// import { initAddLikesListeners initAddRecommentListeners } from "./api.js";
 // import { initAddRecommentListeners } from "./main.js";
 var buttonElement = document.getElementById('add-button');
 var listElement = document.getElementById('list');
@@ -63,6 +64,7 @@ var initAddLikesListeners = function initAddLikesListeners() {
   ;
 };
 
+exports.initAddLikesListeners = initAddLikesListeners;
 initAddLikesListeners();
 
 function initAddRecommentListeners() {

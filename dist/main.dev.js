@@ -9,6 +9,7 @@ var _api = require("./api.js");
 
 var _render = require("./render.js");
 
+// import { cards } from "./api.js";
 var buttonElement = document.getElementById('add-button');
 var listElement = document.getElementById('list');
 var nameInputElement = document.getElementById('name-input');
@@ -53,6 +54,7 @@ function fullDate(date) {
 }
 
 fullDate();
+(0, _api.fetchFunc)(_render.initAddLikesListeners, _render.initAddRecommentListeners);
 buttonElement.addEventListener('click', function () {
   nameInputElement.classList.remove("error");
   textInputElement.classList.remove("error");

@@ -1,4 +1,4 @@
-import { renderCards } from "./render.js";
+import { renderCards, initAddLikesListeners, initAddRecommentListeners } from "./render.js";
 import { fullDate } from "./main.js";
 
 const buttonElement = document.getElementById('add-button');
@@ -9,6 +9,8 @@ const buttonElement = document.getElementById('add-button');
     const articleElement = document.getElementById('article');
 
     let cards = [];
+
+  
 
 export function fetchFunc() {
     
@@ -28,11 +30,12 @@ export function fetchFunc() {
             text: comment.text,
             likesCounter: comment.likes,
             activeLike: false, 
+            class: "",
           };
         })        
         cards = appComments;
         
-        renderCards(cards);
+        renderCards(cards, initAddLikesListeners, initAddRecommentListeners);
       })
       .then(() => {
       articleElement.style.display = "none";
@@ -43,6 +46,7 @@ export function fetchFunc() {
   fetchFunc();
 
       
+  
 
       export function fetchProm() {
       fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
@@ -95,5 +99,5 @@ export function fetchFunc() {
   
 };
 
-fetchProm();
+// fetchProm();
 export {cards};

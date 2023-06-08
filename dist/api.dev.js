@@ -32,11 +32,12 @@ function fetchFunc() {
         date: (0, _main.fullDate)(comment.date),
         text: comment.text,
         likesCounter: comment.likes,
-        activeLike: false
+        activeLike: false,
+        "class": ""
       };
     });
     exports.cards = cards = appComments;
-    (0, _render.renderCards)(cards);
+    (0, _render.renderCards)(cards, _render.initAddLikesListeners, _render.initAddRecommentListeners);
   }).then(function () {
     articleElement.style.display = "none";
   });
@@ -87,5 +88,4 @@ function fetchProm() {
   buttonElement.textContent = "Написать";
 }
 
-;
-fetchProm();
+; // fetchProm();

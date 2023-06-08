@@ -1,4 +1,4 @@
-// import { initAddLikesListeners } from "./main.js";
+// import { initAddLikesListeners initAddRecommentListeners } from "./api.js";
 // import { initAddRecommentListeners } from "./main.js";
 
 const buttonElement = document.getElementById('add-button');
@@ -87,3 +87,7 @@ export const renderCards = (cards) => {
   };
 
   renderCards(cards);
+
+  export { initAddLikesListeners };
+  export { initAddRecommentListeners };
+
