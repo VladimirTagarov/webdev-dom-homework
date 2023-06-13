@@ -1,5 +1,6 @@
-// import { initAddLikesListeners initAddRecommentListeners } from "./api.js";
-// import { initAddRecommentListeners } from "./main.js";
+import { cards } from "./main.js";
+import { initAddLikesListeners, initAddRecommentListeners } from "./main.js";
+import { fetchFunc, fetchProm } from "./api.js";
 
 const buttonElement = document.getElementById('add-button');
 const listElement = document.getElementById('list');
@@ -7,57 +8,6 @@ const nameInputElement = document.getElementById('name-input');
 const textInputElement = document.getElementById('text-input');
 const likesCounterElements = document.querySelectorAll('.likes-counter');
 const articleElement = document.getElementById('article');
-
-let cards = [];
-
-const initAddLikesListeners = () => {
-  const likesCounterElements = document.querySelectorAll('.likes-counter')
-  const addLikesElements = document.querySelectorAll(".like-button");
-
-  for (const addLikesElement of addLikesElements) {
-    addLikesElement.addEventListener("click", (event) => {
-      const indexElement = addLikesElement.dataset.index;
-      const currentElement = cards[indexElement];
-      event.stopPropagation();
-
-      if (currentElement.class === '-active-like') {
-        currentElement.likesCounter --;
-        currentElement.class = '';         
-      }
-      else {
-          currentElement.likesCounter ++;
-          currentElement.class = '-active-like';    
-      };
-               
-      renderCards(cards);
-    });       
-
-  };
-  
-};
-
-initAddLikesListeners();
-
-function initAddRecommentListeners() {
-
-  const commentElements = document.querySelectorAll('.comment');
-  const commentHeaderElements = document.querySelectorAll('.comment-header');
-
-  for (const commentElement of commentElements) {
-    commentElement.addEventListener('click', () => {
-  const commentBodyElement = commentElement.dataset.comment;
-  const indexElement = commentElement.dataset.index;
-  const curElement = cards[indexElement];
-  const cardNameElement = commentElement.dataset.name;
-  textInputElement.value = `<${commentBodyElement}
-   ${curElement.name}, 
-   `;
-
-  });
-};
-
-};
-initAddRecommentListeners();
 
 export const renderCards = (cards) => {
     const cardsHTML = cards
@@ -86,8 +36,9 @@ export const renderCards = (cards) => {
     initAddRecommentListeners();
   };
 
-  renderCards(cards);
+  // renderCards(cards);
 
   export { initAddLikesListeners };
   export { initAddRecommentListeners };
+  // export { cards };
 

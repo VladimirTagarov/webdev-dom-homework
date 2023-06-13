@@ -1,6 +1,5 @@
-import { fetchFunc, fetchProm} from "./api.js";
-import { renderCards } from "./render.js";
-
+// import { cards } from "./api.js";
+// import { initAddRecommentListeners } from "./main.js";
 
 const buttonElement = document.getElementById('add-button');
 const listElement = document.getElementById('list');
@@ -11,35 +10,7 @@ const articleElement = document.getElementById('article');
 
 let cards = [];
 
-export function fullDate(date) {
-  let inputDate = new Date(date);
-      let dayDate = inputDate.getDate();
-  if (dayDate < 10) {
-    dayDate = '0' + dayDate;
-  };
-  let monthDate = inputDate.getMonth();
-  monthDate += 1;
-  if (monthDate < 10) {
-    monthDate = '0' + monthDate;
-  };
-  let yearDate = inputDate.getFullYear();
-  yearDate = yearDate-2000;
-  let hourDate = inputDate.getHours();
-  if (hourDate < 10) {
-    hourDate = '0' + hourDate;
-  };
-  let minutesDate = inputDate.getMinutes();
-  if (minutesDate < 10) {
-    minutesDate = '0' + minutesDate;
-  };
-
-  return dayDate + "." + monthDate + "." + yearDate + " " + hourDate + ':' + minutesDate;
-  }
-fullDate()
-
-fetchFunc(cards);
-
-export const initAddLikesListeners = (cards) => {
+const initAddLikesListeners = () => {
   const likesCounterElements = document.querySelectorAll('.likes-counter')
   const addLikesElements = document.querySelectorAll(".like-button");
 
@@ -65,9 +36,9 @@ export const initAddLikesListeners = (cards) => {
   
 };
 
-initAddLikesListeners(cards);
+initAddLikesListeners();
 
-export function initAddRecommentListeners(cards) {
+function initAddRecommentListeners() {
 
   const commentElements = document.querySelectorAll('.comment');
   const commentHeaderElements = document.querySelectorAll('.comment-header');
@@ -86,34 +57,37 @@ export function initAddRecommentListeners(cards) {
 };
 
 };
-initAddRecommentListeners(cards);
+initAddRecommentListeners();
 
- 
-buttonElement.addEventListener('click', () => {
- 
-  nameInputElement.classList.remove("error");
-  textInputElement.classList.remove("error");
-
-  if (nameInputElement.value ==='') {
-    nameInputElement.classList.add("error");
-
-    return;
-  }
-    else if (textInputElement.value ==='') {
-    textInputElement.classList.add("error");
-
-    return;
+export const renderCards = (cards) => {
+    const cardsHTML = cards
+    .map((card, index) => {
+      return `<li data-comment="${card.text}" data-index="${index}" class="comment">
+        <div data-name="${card.name}" class="comment-header">
+          ${card.name}
+          <div>${card.date}</div>
+        </div>
+        <div data-comment="${card.text}" data-index="${index}" class="comment-body">
+       
+            ${card.text}
+      
+        </div>
+        <div class="comment-footer">
+          <div class="likes">
+            <span class="likes-counter">${card.likesCounter}</span>
+            <button class="like-button ${card.class}" data-index="${index}"></button>
+          </div>
+        </div>
+      </li>`;
+    })
+    .join("");
+    listElement.innerHTML = cardsHTML;
+    initAddLikesListeners();
+    initAddRecommentListeners();
   };
 
-  buttonElement.disabled = true;
-  buttonElement.textContent = "Ваши данные загружаются";
+  renderCards(cards);
 
-  fetchProm();
-});
-
-
-
-export { cards };
-
-
+  export { initAddLikesListeners };
+  export { initAddRecommentListeners };
 

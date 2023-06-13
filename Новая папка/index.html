@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Проект "Комменты"</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <div class="container">
+      <ul id="list" class="comments">
+      </ul>
+      <h4 class="article" id="article">Пожалуйста, подождите комментарии загружаются</h4>
+      
+      <div class="add-form" id="autorize">
+        <input
+          type="text" id="login-input"
+          class="add-form-name"
+        />
+        <input
+          type="text" id="password-input"
+          class="add-form-name"
+        >
+        <div class="add-form-row">
+          <button id="login-button" class="add-form-button">Войти</button>
+        </div>
+
+        <div class="add-form-row">
+          <button id="login-button" class="add-form-button">Зарегистрироваться</button>
+        </div>
+      </div>
+
+      <!-- <div class="add-form" id="login">
+        <input
+          type="text" id="name-login-input"
+          class="add-form-name"
+        />
+        <input
+          type="text" id="login-input"
+          class="add-form-name"
+        />
+        <input
+          type="text" id="password-input"
+          class="add-form-name"
+        >
+        <div class="add-form-row">
+          <button id="login-button" class="add-form-button">Войти</button>
+        </div>
+      </div> -->
+
+      <div class="add-form">
+        <input
+          type="text" id="name-input"
+          class="add-form-name"
+          placeholder="Введите ваше имя"
+        />
+        <textarea
+          type="textarea" id="text-input"
+          class="add-form-text"
+          placeholder="Введите ваш коментарий"
+          rows="4"
+        ></textarea>
+        <div class="add-form-row">
+          <button id="add-button" class="add-form-button">Написать</button>
+        </div>
+      </div>
+    </div> 
+    
+    <script type="module" src="./main.js">
+ 
+    </script>
+  </body>
+  <style>
+    .error {
+      background-color: red;
+    }
+  </style>
+
+ 
+</html>

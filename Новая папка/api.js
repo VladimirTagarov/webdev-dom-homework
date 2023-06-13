@@ -1,6 +1,5 @@
-import { renderCards } from "./render.js";
-import { fullDate, initAddLikesListeners, initAddRecommentListeners, cards } from "./main.js";
-// import { cards } from "./main.js";
+import { renderCards, initAddLikesListeners, initAddRecommentListeners } from "./render.js";
+import { fullDate } from "./main.js";
 
 const buttonElement = document.getElementById('add-button');
     const listElement = document.getElementById('list');
@@ -9,21 +8,16 @@ const buttonElement = document.getElementById('add-button');
     const likesCounterElements = document.querySelectorAll('.likes-counter');
     const articleElement = document.getElementById('article');
 
+    let cards = [];
 
-export function fetchFunc(cards) {
+  
 
-   let token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck"
+export function fetchFunc() {
     
-    return fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
-      method: "GET",
-      headers: {
-        author: token,
-      },
+    return fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
+      method: "GET"
     })
     .then((response) => {
-      if (response.status === 401) {
-        throw new Error("Нет авторизации");
-      };
       return response.json();
     })
 
@@ -48,22 +42,19 @@ export function fetchFunc(cards) {
     })
       
    };
-  //  console.log(cards);
-  // fetchFunc(cards);
+
+  fetchFunc();
 
       
   
 
-      export function fetchProm(cards) {
-      fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
+      export function fetchProm() {
+      fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
       method: "POST",
       body: JSON.stringify({
         name: nameInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
         text: textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
         // forceError: true,
-        headers: {
-          Authorization: token,
-        },
       })
     })
     .then((response) => {
@@ -109,3 +100,4 @@ export function fetchFunc(cards) {
 };
 
 // fetchProm();
+export {cards};
