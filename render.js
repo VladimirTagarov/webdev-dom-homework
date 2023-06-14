@@ -1,6 +1,5 @@
-import { cards } from "./main.js";
-import { initAddLikesListeners, initAddRecommentListeners } from "./main.js";
-import { fetchFunc, fetchProm } from "./api.js";
+// import { cards } from "./main.js";
+import { fetchFunc, fetchProm, cards, initAddLikesListeners, initAddRecommentListeners } from "./api.js";
 
 const buttonElement = document.getElementById('add-button');
 const listElement = document.getElementById('list');

@@ -1,5 +1,5 @@
 import { renderCards } from "./render.js";
-import { fullDate, initAddLikesListeners, initAddRecommentListeners, cards } from "./main.js";
+import { fullDate} from "./main.js";
 // import { cards } from "./main.js";
 
 const buttonElement = document.getElementById('add-button');
@@ -9,12 +9,62 @@ const buttonElement = document.getElementById('add-button');
     const likesCounterElements = document.querySelectorAll('.likes-counter');
     const articleElement = document.getElementById('article');
 
+    let cards = [];
 
-export function fetchFunc(cards) {
+    export const initAddLikesListeners = () => {
+      const likesCounterElements = document.querySelectorAll('.likes-counter')
+      const addLikesElements = document.querySelectorAll(".like-button");
+    
+      for (const addLikesElement of addLikesElements) {
+        addLikesElement.addEventListener("click", (event) => {
+          const indexElement = addLikesElement.dataset.index;
+          const currentElement = cards[indexElement];
+          event.stopPropagation();
+    
+          if (currentElement.class === '-active-like') {
+            currentElement.likesCounter --;
+            currentElement.class = '';         
+          }
+          else {
+              currentElement.likesCounter ++;
+              currentElement.class = '-active-like';    
+          };
+                   
+          renderCards(cards);
+        });       
+    
+      };
+      
+    };
+    
+    initAddLikesListeners();
+    
+    export function initAddRecommentListeners() {
+    
+      const commentElements = document.querySelectorAll('.comment');
+      const commentHeaderElements = document.querySelectorAll('.comment-header');
+    
+      for (const commentElement of commentElements) {
+        commentElement.addEventListener('click', () => {
+      const commentBodyElement = commentElement.dataset.comment;
+      const indexElement = commentElement.dataset.index;
+      const curElement = cards[indexElement];
+      const cardNameElement = commentElement.dataset.name;
+      textInputElement.value = `<${commentBodyElement}
+       ${curElement.name}, 
+       `;
+    
+      });
+    };
+    
+    };
+    initAddRecommentListeners();
+
+export function fetchFunc() {
 
    let token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck"
     
-    return fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
+    return fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
       method: "GET",
       headers: {
         author: token,
@@ -49,21 +99,21 @@ export function fetchFunc(cards) {
       
    };
   //  console.log(cards);
-  // fetchFunc(cards);
+  fetchFunc();
 
       
   
 
       export function fetchProm(cards) {
-      fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
+      fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
       method: "POST",
       body: JSON.stringify({
         name: nameInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
         text: textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
         // forceError: true,
-        headers: {
-          Authorization: token,
-        },
+        // headers: {
+        //   Authorization: token,
+        // },
       })
     })
     .then((response) => {
@@ -108,4 +158,5 @@ export function fetchFunc(cards) {
   
 };
 
+export { cards };
 // fetchProm();

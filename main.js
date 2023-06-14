@@ -9,7 +9,7 @@ const textInputElement = document.getElementById('text-input');
 const likesCounterElements = document.querySelectorAll('.likes-counter');
 const articleElement = document.getElementById('article');
 
-let cards = [];
+// let cards = [];
 
 export function fullDate(date) {
   let inputDate = new Date(date);
@@ -37,56 +37,56 @@ export function fullDate(date) {
   }
 fullDate()
 
-fetchFunc(cards);
+fetchFunc();
 
-export const initAddLikesListeners = (cards) => {
-  const likesCounterElements = document.querySelectorAll('.likes-counter')
-  const addLikesElements = document.querySelectorAll(".like-button");
+// export const initAddLikesListeners = (cards) => {
+//   const likesCounterElements = document.querySelectorAll('.likes-counter')
+//   const addLikesElements = document.querySelectorAll(".like-button");
 
-  for (const addLikesElement of addLikesElements) {
-    addLikesElement.addEventListener("click", (event) => {
-      const indexElement = addLikesElement.dataset.index;
-      const currentElement = cards[indexElement];
-      event.stopPropagation();
+//   for (const addLikesElement of addLikesElements) {
+//     addLikesElement.addEventListener("click", (event) => {
+//       const indexElement = addLikesElement.dataset.index;
+//       const currentElement = cards[indexElement];
+//       event.stopPropagation();
 
-      if (currentElement.class === '-active-like') {
-        currentElement.likesCounter --;
-        currentElement.class = '';         
-      }
-      else {
-          currentElement.likesCounter ++;
-          currentElement.class = '-active-like';    
-      };
+//       if (currentElement.class === '-active-like') {
+//         currentElement.likesCounter --;
+//         currentElement.class = '';         
+//       }
+//       else {
+//           currentElement.likesCounter ++;
+//           currentElement.class = '-active-like';    
+//       };
                
-      renderCards(cards);
-    });       
+//       renderCards(cards);
+//     });       
 
-  };
+//   };
   
-};
+// };
 
-initAddLikesListeners(cards);
+// initAddLikesListeners();
 
-export function initAddRecommentListeners(cards) {
+// export function initAddRecommentListeners(cards) {
 
-  const commentElements = document.querySelectorAll('.comment');
-  const commentHeaderElements = document.querySelectorAll('.comment-header');
+//   const commentElements = document.querySelectorAll('.comment');
+//   const commentHeaderElements = document.querySelectorAll('.comment-header');
 
-  for (const commentElement of commentElements) {
-    commentElement.addEventListener('click', () => {
-  const commentBodyElement = commentElement.dataset.comment;
-  const indexElement = commentElement.dataset.index;
-  const curElement = cards[indexElement];
-  const cardNameElement = commentElement.dataset.name;
-  textInputElement.value = `<${commentBodyElement}
-   ${curElement.name}, 
-   `;
+//   for (const commentElement of commentElements) {
+//     commentElement.addEventListener('click', () => {
+//   const commentBodyElement = commentElement.dataset.comment;
+//   const indexElement = commentElement.dataset.index;
+//   const curElement = cards[indexElement];
+//   const cardNameElement = commentElement.dataset.name;
+//   textInputElement.value = `<${commentBodyElement}
+//    ${curElement.name}, 
+//    `;
 
-  });
-};
+//   });
+// };
 
-};
-initAddRecommentListeners(cards);
+// };
+// initAddRecommentListeners();
 
  
 buttonElement.addEventListener('click', () => {
@@ -113,7 +113,7 @@ buttonElement.addEventListener('click', () => {
 
 
 
-export { cards };
+// export { cards };
 
 
 
