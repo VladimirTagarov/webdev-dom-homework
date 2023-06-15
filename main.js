@@ -1,15 +1,18 @@
 import { fetchFunc, fetchProm} from "./api.js";
-import { renderCards } from "./render.js";
+import { articleElement, renderCards } from "./render.js";
 
 
-const buttonElement = document.getElementById('add-button');
+// const buttonElement = document.getElementById('add-button');
 const listElement = document.getElementById('list');
-const nameInputElement = document.getElementById('name-input');
-const textInputElement = document.getElementById('text-input');
+// const nameInputElement = document.getElementById('name-input');
+// const textInputElement = document.getElementById('text-input');
 const likesCounterElements = document.querySelectorAll('.likes-counter');
-const articleElement = document.getElementById('article');
+// const articleElement = document.getElementById('article');
 
 // let cards = [];
+
+// export let token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck"
+export let token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
 
 export function fullDate(date) {
   let inputDate = new Date(date);
@@ -37,7 +40,12 @@ export function fullDate(date) {
   }
 fullDate()
 
+
+
 fetchFunc();
+
+
+
 
 // export const initAddLikesListeners = (cards) => {
 //   const likesCounterElements = document.querySelectorAll('.likes-counter')
@@ -89,27 +97,7 @@ fetchFunc();
 // initAddRecommentListeners();
 
  
-buttonElement.addEventListener('click', () => {
- 
-  nameInputElement.classList.remove("error");
-  textInputElement.classList.remove("error");
 
-  if (nameInputElement.value ==='') {
-    nameInputElement.classList.add("error");
-
-    return;
-  }
-    else if (textInputElement.value ==='') {
-    textInputElement.classList.add("error");
-
-    return;
-  };
-
-  buttonElement.disabled = true;
-  buttonElement.textContent = "Ваши данные загружаются";
-
-  fetchProm();
-});
 
 
 

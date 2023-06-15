@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.initAddRecommentListeners = initAddRecommentListeners;
 exports.fetchFunc = fetchFunc;
 exports.fetchProm = fetchProm;
+exports.login = login;
 exports.cards = exports.initAddLikesListeners = void 0;
 
 var _render = require("./render.js");
@@ -13,12 +14,11 @@ var _render = require("./render.js");
 var _main = require("./main.js");
 
 // import { cards } from "./main.js";
-var buttonElement = document.getElementById('add-button');
-var listElement = document.getElementById('list');
-var nameInputElement = document.getElementById('name-input');
-var textInputElement = document.getElementById('text-input');
+// const buttonElement = document.getElementById('add-button');
+var listElement = document.getElementById('list'); // const nameInputElement = document.getElementById('name-input');
+// const textInputElement = document.getElementById('text-input');
+
 var likesCounterElements = document.querySelectorAll('.likes-counter');
-var articleElement = document.getElementById('article');
 var cards = [];
 exports.cards = cards;
 
@@ -89,7 +89,7 @@ function initAddRecommentListeners() {
         var indexElement = commentElement.dataset.index;
         var curElement = cards[indexElement];
         var cardNameElement = commentElement.dataset.name;
-        textInputElement.value = "<".concat(commentBodyElement, "\n       ").concat(curElement.name, ", \n       ");
+        _render.textInputElement.value = "<".concat(commentBodyElement, "\n       ").concat(curElement.name, ", \n       ");
       });
     };
 
@@ -117,12 +117,11 @@ function initAddRecommentListeners() {
 ;
 initAddRecommentListeners();
 
-function fetchFunc() {
-  var token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
-  return fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
+function fetchFunc(cards, token) {
+  return fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
     method: "GET",
     headers: {
-      author: token
+      author: "Bearer ".concat(token)
     }
   }).then(function (response) {
     if (response.status === 401) {
@@ -142,10 +141,10 @@ function fetchFunc() {
         "class": ""
       };
     });
-    exports.cards = cards = appComments;
+    cards = appComments;
     (0, _render.renderCards)(cards, initAddLikesListeners, initAddRecommentListeners);
   }).then(function () {
-    articleElement.style.display = "none";
+    _render.articleElement.style.display = "none";
   });
 }
 
@@ -153,36 +152,36 @@ function fetchFunc() {
 
 fetchFunc();
 
-function fetchProm(cards) {
-  fetch("https://webdev-hw-api.vercel.app/api/v1/vladimir-tagarov/comments", {
+function fetchProm() {
+  fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
     method: "POST",
     body: JSON.stringify({
-      name: nameInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
-      text: textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;") // forceError: true,
-      // headers: {
-      //   Authorization: token,
-      // },
-
+      name: _render.nameInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
+      text: _render.textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
+      // forceError: true,
+      headers: {
+        author: "Bearer ".concat(_main.token)
+      }
     })
   }).then(function (response) {
     if (response.status === 400) {
       alert('Имя и комментарий должны быть не короче 3 символов');
       throw new Error('Некорректный комментарий');
-      buttonElement.disabled = false;
-      buttonElement.textContent = "Написать";
+      _render.buttonElement.disabled = false;
+      _render.buttonElement.textContent = "Написать";
     } else if (response.status === 500) {
       alert('Сервер сломался, попробуйте еще раз');
       throw new Error('Ошибка сервера');
-      buttonElement.disabled = false;
-      buttonElement.textContent = "Написать";
+      _render.buttonElement.disabled = false;
+      _render.buttonElement.textContent = "Написать";
     } else {
       response.json();
     }
   }).then(function (responseData) {
-    buttonElement.disabled = false;
-    buttonElement.textContent = "Написать";
-    nameInputElement.value = "";
-    textInputElement.value = "";
+    _render.buttonElement.disabled = false;
+    _render.buttonElement.textContent = "Написать";
+    _render.nameInputElement.value = "";
+    _render.textInputElement.value = "";
     fetchFunc();
   })["catch"](function (error) {
     if (response.status === 500) {
@@ -194,8 +193,22 @@ function fetchProm(cards) {
       console.warn("error");
     }
   });
-  buttonElement.disabled = false;
-  buttonElement.textContent = "Написать";
+  _render.buttonElement.disabled = false;
+  _render.buttonElement.textContent = "Написать";
 }
 
-; // fetchProm();
+;
+
+function login(_ref) {
+  var login = _ref.login,
+      password = _ref.password;
+  return fetch("https://wedev-api.sky.pro/api/user/login", {
+    method: "POST",
+    body: JSON.stringify({
+      login: login,
+      password: password
+    })
+  }).then(function (response) {
+    return response.json();
+  });
+} // fetchProm();

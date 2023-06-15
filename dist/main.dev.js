@@ -4,17 +4,22 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fullDate = fullDate;
+exports.token = void 0;
 
 var _api = require("./api.js");
 
 var _render = require("./render.js");
 
-var buttonElement = document.getElementById('add-button');
-var listElement = document.getElementById('list');
-var nameInputElement = document.getElementById('name-input');
-var textInputElement = document.getElementById('text-input');
-var likesCounterElements = document.querySelectorAll('.likes-counter');
-var articleElement = document.getElementById('article'); // let cards = [];
+// const buttonElement = document.getElementById('add-button');
+var listElement = document.getElementById('list'); // const nameInputElement = document.getElementById('name-input');
+// const textInputElement = document.getElementById('text-input');
+
+var likesCounterElements = document.querySelectorAll('.likes-counter'); // const articleElement = document.getElementById('article');
+// let cards = [];
+// export let token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck"
+
+var token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
+exports.token = token;
 
 function fullDate(date) {
   var inputDate = new Date(date);
@@ -90,21 +95,4 @@ fullDate();
 // };
 // };
 // initAddRecommentListeners();
-
-buttonElement.addEventListener('click', function () {
-  nameInputElement.classList.remove("error");
-  textInputElement.classList.remove("error");
-
-  if (nameInputElement.value === '') {
-    nameInputElement.classList.add("error");
-    return;
-  } else if (textInputElement.value === '') {
-    textInputElement.classList.add("error");
-    return;
-  }
-
-  ;
-  buttonElement.disabled = true;
-  buttonElement.textContent = "Ваши данные загружаются";
-  (0, _api.fetchProm)();
-}); // export { cards };
+// export { cards };
