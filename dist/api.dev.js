@@ -117,11 +117,12 @@ function initAddRecommentListeners() {
 ;
 initAddRecommentListeners();
 
-function fetchFunc(cards, token) {
+function fetchFunc(token) {
   return fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
     method: "GET",
     headers: {
-      author: "Bearer ".concat(token)
+      // Authorization: `Bearer ${token}`,
+      Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck"
     }
   }).then(function (response) {
     if (response.status === 401) {
@@ -141,7 +142,7 @@ function fetchFunc(cards, token) {
         "class": ""
       };
     });
-    cards = appComments;
+    exports.cards = cards = appComments;
     (0, _render.renderCards)(cards, initAddLikesListeners, initAddRecommentListeners);
   }).then(function () {
     _render.articleElement.style.display = "none";
@@ -160,7 +161,8 @@ function fetchProm() {
       text: _render.textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
       // forceError: true,
       headers: {
-        author: "Bearer ".concat(_main.token)
+        // Authorization: `Bearer ${token}`,
+        Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck"
       }
     })
   }).then(function (response) {

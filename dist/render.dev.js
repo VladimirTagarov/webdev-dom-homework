@@ -62,8 +62,8 @@ var renderCards = function renderCards(cards) {
   exports.nameInputElement = nameInputElement = document.getElementById('name-input');
   exports.textInputElement = textInputElement = document.getElementById('text-input');
   var likesCounterElements = document.querySelectorAll('.likes-counter');
-  exports.articleElement = articleElement = document.getElementById('article');
-  console.log(articleElement);
+  exports.articleElement = articleElement = document.getElementById('article'); // console.log(articleElement);
+
   (0, _api.initAddLikesListeners)();
   (0, _api.initAddRecommentListeners)();
   buttonElement.addEventListener('click', function () {

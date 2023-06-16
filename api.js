@@ -59,13 +59,14 @@ import { fullDate, token} from "./main.js";
     };
     initAddRecommentListeners();
 
-export function fetchFunc(cards, token) {
+export function fetchFunc(token) {
 
     
     return fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
       method: "GET",
       headers: {
-        author: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
+        Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
       },
     })
     .then((response) => {
@@ -111,7 +112,8 @@ export function fetchFunc(cards, token) {
         text: textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
         // forceError: true,
         headers: {
-          author: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
+        Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
         },
       })
     })

@@ -108,7 +108,7 @@ return;
     const likesCounterElements = document.querySelectorAll('.likes-counter');
     articleElement = document.getElementById('article');
 
-    console.log(articleElement);
+    // console.log(articleElement);
 
     
   
