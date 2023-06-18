@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fullDate = fullDate;
-exports.token = void 0;
 
 var _api = require("./api.js");
 
@@ -16,10 +15,12 @@ var listElement = document.getElementById('list'); // const nameInputElement = d
 
 var likesCounterElements = document.querySelectorAll('.likes-counter'); // const articleElement = document.getElementById('article');
 // let cards = [];
-// export let token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck"
-
-var token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
-exports.token = token;
+// export let token = "Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k"
+// export let token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
+// export let token = null;
+// export function setToken(newToken) {
+//  token = newToken;
+// };
 
 function fullDate(date) {
   var inputDate = new Date(date);
@@ -57,8 +58,8 @@ function fullDate(date) {
   return dayDate + "." + monthDate + "." + yearDate + " " + hourDate + ':' + minutesDate;
 }
 
-fullDate();
-(0, _api.fetchFunc)(); // export const initAddLikesListeners = (cards) => {
+fullDate(); // fetchFunc();
+// export const initAddLikesListeners = (cards) => {
 //   const likesCounterElements = document.querySelectorAll('.likes-counter')
 //   const addLikesElements = document.querySelectorAll(".like-button");
 //   for (const addLikesElement of addLikesElements) {

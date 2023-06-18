@@ -1,5 +1,5 @@
-import { renderCards, articleElement, nameInputElement, textInputElement, buttonElement } from "./render.js";
-import { fullDate, token} from "./main.js";
+import { renderCards, articleElement, nameInputElement, textInputElement, buttonElement} from "./render.js";
+import { fullDate} from "./main.js";
 // import { cards } from "./main.js";
 
 // const buttonElement = document.getElementById('add-button');
@@ -60,7 +60,7 @@ import { fullDate, token} from "./main.js";
     initAddRecommentListeners();
 
 export function fetchFunc(token) {
-
+  // console.log(articleElement);
     
     return fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
       method: "GET",
@@ -90,7 +90,7 @@ export function fetchFunc(token) {
         })        
         cards = appComments;
         
-        renderCards(cards, initAddLikesListeners, initAddRecommentListeners);
+        renderCards(cards);
       })
       .then(() => {
       articleElement.style.display = "none";
@@ -111,11 +111,11 @@ export function fetchFunc(token) {
         name: nameInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
         text: textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
         // forceError: true,
-        headers: {
+      }),
+      headers: {
           // Authorization: `Bearer ${token}`,
         Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
         },
-      })
     })
     .then((response) => {
       if (response.status === 400) {
@@ -159,7 +159,7 @@ export function fetchFunc(token) {
   
 };
 
-export function login({login, password}) {
+export function loginUser({login, password}) {
   return fetch("https://wedev-api.sky.pro/api/user/login", {
     method: "POST",
     body: JSON.stringify({
@@ -167,7 +167,10 @@ export function login({login, password}) {
       password,
     }),
   }). then((response) => {
-    return response.json();
+    if(response.status === 400) {
+      throw new Error('Неверный логин или пароль');
+      }    
+      return response.json();
   });
 }
 

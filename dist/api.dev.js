@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.initAddRecommentListeners = initAddRecommentListeners;
 exports.fetchFunc = fetchFunc;
 exports.fetchProm = fetchProm;
-exports.login = login;
+exports.loginUser = loginUser;
 exports.cards = exports.initAddLikesListeners = void 0;
 
 var _render = require("./render.js");
@@ -118,6 +118,7 @@ function initAddRecommentListeners() {
 initAddRecommentListeners();
 
 function fetchFunc(token) {
+  // console.log(articleElement);
   return fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
     method: "GET",
     headers: {
@@ -143,7 +144,7 @@ function fetchFunc(token) {
       };
     });
     exports.cards = cards = appComments;
-    (0, _render.renderCards)(cards, initAddLikesListeners, initAddRecommentListeners);
+    (0, _render.renderCards)(cards);
   }).then(function () {
     _render.articleElement.style.display = "none";
   });
@@ -158,13 +159,13 @@ function fetchProm() {
     method: "POST",
     body: JSON.stringify({
       name: _render.nameInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
-      text: _render.textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
-      // forceError: true,
-      headers: {
-        // Authorization: `Bearer ${token}`,
-        Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck"
-      }
-    })
+      text: _render.textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;") // forceError: true,
+
+    }),
+    headers: {
+      // Authorization: `Bearer ${token}`,
+      Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck"
+    }
   }).then(function (response) {
     if (response.status === 400) {
       alert('Имя и комментарий должны быть не короче 3 символов');
@@ -201,7 +202,7 @@ function fetchProm() {
 
 ;
 
-function login(_ref) {
+function loginUser(_ref) {
   var login = _ref.login,
       password = _ref.password;
   return fetch("https://wedev-api.sky.pro/api/user/login", {
@@ -211,6 +212,10 @@ function login(_ref) {
       password: password
     })
   }).then(function (response) {
+    if (response.status === 400) {
+      throw new Error('Неверный логин или пароль');
+    }
+
     return response.json();
   });
 } // fetchProm();

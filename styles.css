@@ -12,6 +12,7 @@ body {
     padding-bottom: 200px;
     background: #202020;
     min-height: 100vh;
+    gap: 32px;
   }
 
   .comments,
@@ -137,4 +138,13 @@ body {
   .add-form-button:hover {
     opacity: 0.9;
   }
-
+.add-form-login{
+  display: flex;
+  gap: 20px;
+}
+.article{
+  display: none;
+}
+.link-comment{
+  text-decoration: underline;
+}
