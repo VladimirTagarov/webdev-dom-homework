@@ -8,7 +8,7 @@
 
   <body>
     <div id="app"></div>
-    <!-- <div class="container">
+    <div class="container">
       <ul id="list" class="comments">
       </ul>
       <h4 class="article" id="article">Пожалуйста, подождите комментарии загружаются</h4>
@@ -29,7 +29,7 @@
         <div class="add-form-row">
           <button id="login-button" class="add-form-button">Зарегистрироваться</button>
         </div>
-      </div>  -->
+      </div>
 
       <!-- <div class="add-form" id="login">
         <input
@@ -49,7 +49,23 @@
         </div>
       </div> -->
 
-      
+      <div class="add-form">
+        <input
+          type="text" id="name-input"
+          class="add-form-name"
+          placeholder="Введите ваше имя"
+        />
+        <textarea
+          type="textarea" id="text-input"
+          class="add-form-text"
+          placeholder="Введите ваш коментарий"
+          rows="4"
+        ></textarea>
+        <div class="add-form-row">
+          <button id="add-button" class="add-form-button">Написать</button>
+        </div>
+      </div>
+    </div> 
     
     <script type="module" src="./main.js">
  
