@@ -7,8 +7,8 @@ let articleElement;
 let nameInputElement;
 let textInputElement;
 
-// let token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
-let token = null;
+// export let token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
+export let token = null;
 
 // export function setToken(newToken) {
 //  token = newToken;
@@ -43,8 +43,9 @@ export const renderCards = (cards) => {
     </li>`;
   })
   .join("");
-
+  
   if(!token) {
+    
 
     const commentHTML = `
 
@@ -52,8 +53,9 @@ export const renderCards = (cards) => {
     <h4 class="link" id="link">Для того чтобы оставить комментарий <a id="link-comment" class="link-comment">авторизуйтесь</a></h4>`
 
     appEl.innerHTML = commentHTML;
+    
     document.getElementById("link-comment").addEventListener("click", () => {
-      const appHTML =
+    const appHTML =
          ` <div class="container">
       <ul id="list" class="comments">
       </ul>
@@ -246,7 +248,7 @@ return;
       buttonElement.disabled = true;
       buttonElement.textContent = "Ваши данные загружаются";
     
-      fetchProm();
+      fetchProm(token);
     });
 
   };

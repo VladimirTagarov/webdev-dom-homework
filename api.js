@@ -1,4 +1,4 @@
-import { renderCards, articleElement, nameInputElement, textInputElement, buttonElement} from "./render.js";
+import { renderCards, articleElement, nameInputElement, textInputElement, buttonElement, token} from "./render.js";
 import { fullDate} from "./main.js";
 // import { cards } from "./main.js";
 
@@ -65,8 +65,8 @@ export function fetchFunc(token) {
     return fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
       method: "GET",
       headers: {
-        // Authorization: `Bearer ${token}`,
-        Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
+        Authorization: token,
+        // Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
       },
     })
     .then((response) => {
@@ -98,12 +98,12 @@ export function fetchFunc(token) {
       
    };
   //  console.log(cards);
-  fetchFunc();
+  fetchFunc(token);
 
       
   
 
-      export function fetchProm() {
+      export function fetchProm(token) {
 
       fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
       method: "POST",
@@ -113,8 +113,8 @@ export function fetchFunc(token) {
         // forceError: true,
       }),
       headers: {
-          // Authorization: `Bearer ${token}`,
-        Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
+          Authorization: token,
+        // Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
         },
     })
     .then((response) => {
