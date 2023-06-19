@@ -13,138 +13,51 @@ export let token = null;
 let cardsHTML;
 
 export const renderCards = (cards) => {
-  const appEl = document.getElementById('app');
+  const appEl = document.querySelector('.container');
 
   cardsHTML = cards
   .map((card, index) => {
     return `
-    <div class="container">
-              <ul id="list" class="comments">
-              </ul>
-              <li data-comment="${card.text}" data-index="${index}" class="comment">
-      <div data-name="${card.name}" class="comment-header">
-        ${card.name}
-        <div>${card.date}</div>
-      </div>
-      <div data-comment="${card.text}" data-index="${index}" class="comment-body">
-     
-          ${card.text}
-    
-      </div>
-      <div class="comment-footer">
-        <div class="likes">
-          <span class="likes-counter">${card.likesCounter}</span>
-          <button class="like-button ${card.class}" data-index="${index}"></button>
+      <ul id="list" class="comments">
+        <li data-comment="${card.text}" data-index="${index}" class="comment">
+        <div data-name="${card.name}" class="comment-header">
+          ${card.name}
+          <div>${card.date}</div>
         </div>
-      </div>
-    </li>`;
+        <div data-comment="${card.text}" data-index="${index}" class="comment-body">
+      
+            ${card.text}
+      
+        </div>
+        <div class="comment-footer">
+          <div class="likes">
+            <span class="likes-counter">${card.likesCounter}</span>
+            <button class="like-button ${card.class}" data-index="${index}"></button>
+          </div>
+        </div>
+      </li>
+    </ul>`;
   })
   .join("");
   
   if(!token) {
+    console.log('Нет токена');
     renderLoginComponent ({
       appEl, 
       setToken: (newToken) => {
         token = newToken;
       }, 
-      renderCards,
     })
-
-//     const commentHTML = `
-
-//     ${cardsHTML}
-//     <h4 class="link" id="link">Для того чтобы оставить комментарий <a id="link-comment" class="link-comment">авторизуйтесь</a></h4>`
-
-//     appEl.innerHTML = commentHTML;
-    
-//     document.getElementById("link-comment").addEventListener("click", () => {
-//     const appHTML =
-//          ` <div class="container">
-//       <ul id="list" class="comments">
-//       </ul>
-      
-//       <div class="add-form add-form-login" id="autorize">
-//         <input
-//           type="text" id="login-input"
-//           class="add-form-name"
-//         />
-//         <input
-//           type="password" id="password-input"
-//           class="add-form-name"
-//         >
-//         <div class="add-form-row">
-//           <button id="login-button" class="add-form-button">Войти</button>
-//         </div>
-//         <div class="add-form-row">
-//           <button id="login-button-registration" class="add-form-button">Зарегистрироваться</button>
-//         </div>
-//       </div> 
-// `
-// appEl.innerHTML = appHTML;
-// document.getElementById("login-button").addEventListener("click", () => {
-//   const login = document.getElementById("login-input").value;
-//   const password = document.getElementById("password-input").value;
-
-//   if(!login) {
-//     alert('Введите логин');
-//     return;
-//   }
-
-//   if(!password) {
-//     alert('Введите логин');
-//     return;
-//   }
-
-//   loginUser({
-//     login: login,
-//     password: password,
-//   }).then((user) => {
-//     token = `Bearer ${user.user.token}`;
-//     fetchFunc();
-//   }).catch(error => {
-//     alert(error.message);
-//   })
-// })
-
-//     })
-
-// appEl.innerHTML = appHTML;
-// document.getElementById("login-button").addEventListener("click", () => {
-//   const login = document.getElementById("login-input").value;
-//   const password = document.getElementById("password-input").value;
-
-//   if(!login) {
-//     alert('Введите логин');
-//     return;
-//   }
-
-//   if(!password) {
-//     alert('Введите логин');
-//     return;
-//   }
-
-//   loginUser({
-//     login: login,
-//     password: password,
-//   }).then((user) => {
-//     token = `Bearer ${user.user.token}`;
-//     fetchFunc();
-//   }).catch(error => {
-//     alert(error.message);
-//   })
-// })
-
 return;
 
   }
  
 
   const appHTML = `
-            <div class="container">
+              <h4 class="article" id="article">Пожалуйста, подождите комментарии загружаются</h4>       
               <ul id="list" class="comments">
-              </ul>
-              <h4 class="article" id="article">Пожалуйста, подождите комментарии загружаются</h4>
               ${cardsHTML}
+              </ul>
               <div class="add-form">
                   <input
                     type="text" id="name-input"

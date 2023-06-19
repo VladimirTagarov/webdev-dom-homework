@@ -72,7 +72,7 @@ export function fetchFunc(token) {
     .then((response) => {
       if (response.status === 401) {
         throw new Error("Нет авторизации");
-      };
+      }
       return response.json();
     })
 
@@ -85,7 +85,7 @@ export function fetchFunc(token) {
             text: comment.text,
             likesCounter: comment.likes,
             activeLike: false, 
-            class: "",
+            class: '',
           };
         })        
         cards = appComments;
@@ -93,7 +93,7 @@ export function fetchFunc(token) {
         renderCards(cards);
       })
       .then(() => {
-      articleElement.style.display = "none";
+      // articleElement.style.display = "none";
     })
       
    };
@@ -108,8 +108,16 @@ export function fetchFunc(token) {
       fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
       method: "POST",
       body: JSON.stringify({
-        name: nameInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
-        text: textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
+        name: nameInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;"),
+        text: textInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;"),
         // forceError: true,
       }),
       headers: {
@@ -137,8 +145,8 @@ export function fetchFunc(token) {
     .then((responseData) => {
   buttonElement.disabled = false;
   buttonElement.textContent = "Написать";
-  nameInputElement.value = "";
-  textInputElement.value = "";
+  nameInputElement.value = '';
+  textInputElement.value = '';
   fetchFunc();
   })
   .catch((error) => {
@@ -156,12 +164,11 @@ export function fetchFunc(token) {
   
   buttonElement.disabled = false;
   buttonElement.textContent = "Написать";
-  
 };
 
 export function loginUser({login, password}) {
   return fetch("https://wedev-api.sky.pro/api/user/login", {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify({
       login,
       password,

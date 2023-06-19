@@ -32,7 +32,9 @@ const appHTML =
 `;
 
 appEl.innerHTML = appHTML;
-document.getElementById("login-button").addEventListener("click", () => {
+
+const authButton = document.getElementById("login-button");
+authButton.addEventListener("click", () => {
 const login = document.getElementById("login-input").value;
 const password = document.getElementById("password-input").value;
 
@@ -49,39 +51,16 @@ return;
 loginUser({
 login: login,
 password: password,
-}).then((user) => {
+})
+.then((user) => {
 setToken (`Bearer ${user.user.token}`);
 fetchFunc();
-}).catch(error => {
+})
+.catch(error => {
 alert(error.message);
 })
 })
 
 })
 
-appEl.innerHTML = appHTML;
-document.getElementById("login-button").addEventListener("click", () => {
-const login = document.getElementById("login-input").value;
-const password = document.getElementById("password-input").value;
-
-if(!login) {
-alert('Введите логин');
-return;
-}
-
-if(!password) {
-alert('Введите логин');
-return;
-}
-
-loginUser({
-login: login,
-password: password,
-}).then((user) => {
-setToken (`Bearer ${user.user.token}`);
-fetchFunc();
-}).catch(error => {
-alert(error.message);
-})
-})
 }
