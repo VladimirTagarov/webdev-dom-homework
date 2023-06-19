@@ -1,4 +1,5 @@
 // import { token, setToken } from "./main.js";
+import { renderLoginComponent } from "./Components/login-component.js";
 import { fetchFunc, fetchProm, cards, initAddLikesListeners, initAddRecommentListeners, loginUser } from "./api.js";
 // import { renderLoginComponent } from "./Components/login-component.js";
 
@@ -7,194 +8,56 @@ let articleElement;
 let nameInputElement;
 let textInputElement;
 
-// let token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
-let token = null;
+export let token = null;
 
-// export function setToken(newToken) {
-//  token = newToken;
-// };
-
+let cardsHTML;
 
 export const renderCards = (cards) => {
-  const appEl = document.getElementById('app');
+  const appEl = document.querySelector('.container');
 
-  const cardsHTML = cards
+  cardsHTML = cards
   .map((card, index) => {
     return `
-    <div class="container">
-              <ul id="list" class="comments">
-              </ul>
-              <li data-comment="${card.text}" data-index="${index}" class="comment">
-      <div data-name="${card.name}" class="comment-header">
-        ${card.name}
-        <div>${card.date}</div>
-      </div>
-      <div data-comment="${card.text}" data-index="${index}" class="comment-body">
-     
-          ${card.text}
-    
-      </div>
-      <div class="comment-footer">
-        <div class="likes">
-          <span class="likes-counter">${card.likesCounter}</span>
-          <button class="like-button ${card.class}" data-index="${index}"></button>
+      <ul id="list" class="comments">
+        <li data-comment="${card.text}" data-index="${index}" class="comment">
+        <div data-name="${card.name}" class="comment-header">
+          ${card.name}
+          <div>${card.date}</div>
         </div>
-      </div>
-    </li>`;
+        <div data-comment="${card.text}" data-index="${index}" class="comment-body">
+      
+            ${card.text}
+      
+        </div>
+        <div class="comment-footer">
+          <div class="likes">
+            <span class="likes-counter">${card.likesCounter}</span>
+            <button class="like-button ${card.class}" data-index="${index}"></button>
+          </div>
+        </div>
+      </li>
+    </ul>`;
   })
   .join("");
-
+  
   if(!token) {
-
-    const commentHTML = `
-
-    ${cardsHTML}
-    <h4 class="link" id="link">Для того чтобы оставить комментарий <a id="link-comment" class="link-comment">авторизуйтесь</a></h4>`
-
-    appEl.innerHTML = commentHTML;
-    document.getElementById("link-comment").addEventListener("click", () => {
-      const appHTML =
-         ` <div class="container">
-      <ul id="list" class="comments">
-      </ul>
-      
-      <div class="add-form add-form-login" id="autorize">
-        <input
-          type="text" id="login-input"
-          class="add-form-name"
-        />
-        <input
-          type="password" id="password-input"
-          class="add-form-name"
-        >
-        <div class="add-form-row">
-          <button id="login-button" class="add-form-button">Войти</button>
-        </div>
-        <div class="add-form-row">
-          <button id="login-button-registration" class="add-form-button">Зарегистрироваться</button>
-        </div>
-      </div> 
-`
-appEl.innerHTML = appHTML;
-document.getElementById("login-button").addEventListener("click", () => {
-  const login = document.getElementById("login-input").value;
-  const password = document.getElementById("password-input").value;
-
-  if(!login) {
-    alert('Введите логин');
-    return;
-  }
-
-  if(!password) {
-    alert('Введите логин');
-    return;
-  }
-
-  loginUser({
-    login: login,
-    password: password,
-  }).then((user) => {
-    token = `Bearer ${user.user.token}`;
-    fetchFunc();
-  }).catch(error => {
-    alert(error.message);
-  })
-})
-
+    console.log('Нет токена');
+    renderLoginComponent ({
+      appEl, 
+      setToken: (newToken) => {
+        token = newToken;
+      }, 
     })
-
-//    ` <div class="container">
-//       <ul id="list" class="comments">
-//       </ul>
-      
-//       <div class="add-form add-form-login" id="autorize">
-//         <input
-//           type="text" id="login-input"
-//           class="add-form-name"
-//         />
-//         <input
-//           type="password" id="password-input"
-//           class="add-form-name"
-//         >
-//         <div class="add-form-row">
-//           <button id="login-button" class="add-form-button">Войти</button>
-//         </div>
-//         <div class="add-form-row">
-//           <button id="login-button-registration" class="add-form-button">Зарегистрироваться</button>
-//         </div>
-//       </div> 
-// `
-
-appEl.innerHTML = appHTML;
-document.getElementById("login-button").addEventListener("click", () => {
-  const login = document.getElementById("login-input").value;
-  const password = document.getElementById("password-input").value;
-
-  if(!login) {
-    alert('Введите логин');
-    return;
-  }
-
-  if(!password) {
-    alert('Введите логин');
-    return;
-  }
-
-  loginUser({
-    login: login,
-    password: password,
-  }).then((user) => {
-    token = `Bearer ${user.user.token}`;
-    fetchFunc();
-  }).catch(error => {
-    alert(error.message);
-  })
-})
-  // token = "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
-
-  
-  
-// renderLoginComponent( {
-//   appEl, 
-//   setToken: (newToken) => {
-//   token = newToken;
-// }, 
-// renderCards
-// });
-
 return;
 
   }
  
 
-  // const cardsHTML = cards
-  // .map((card, index) => {
-  //   return `<li data-comment="${card.text}" data-index="${index}" class="comment">
-  //     <div data-name="${card.name}" class="comment-header">
-  //       ${card.name}
-  //       <div>${card.date}</div>
-  //     </div>
-  //     <div data-comment="${card.text}" data-index="${index}" class="comment-body">
-     
-  //         ${card.text}
-    
-  //     </div>
-  //     <div class="comment-footer">
-  //       <div class="likes">
-  //         <span class="likes-counter">${card.likesCounter}</span>
-  //         <button class="like-button ${card.class}" data-index="${index}"></button>
-  //       </div>
-  //     </div>
-  //   </li>`;
-  // })
-  // .join("");
-
   const appHTML = `
-            <div class="container">
+              <h4 class="article" id="article">Пожалуйста, подождите комментарии загружаются</h4>       
               <ul id="list" class="comments">
-              </ul>
-              <h4 class="article" id="article">Пожалуйста, подождите комментарии загружаются</h4>
               ${cardsHTML}
+              </ul>
               <div class="add-form">
                   <input
                     type="text" id="name-input"
@@ -246,7 +109,7 @@ return;
       buttonElement.disabled = true;
       buttonElement.textContent = "Ваши данные загружаются";
     
-      fetchProm();
+      fetchProm(token);
     });
 
   };
@@ -254,6 +117,7 @@ return;
   export {buttonElement};
   export {nameInputElement};
   export {textInputElement};
+  export {cardsHTML};
  
 
   // renderCards(cards);

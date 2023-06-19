@@ -1,4 +1,4 @@
-import { renderCards, articleElement, nameInputElement, textInputElement, buttonElement} from "./render.js";
+import { renderCards, articleElement, nameInputElement, textInputElement, buttonElement, token} from "./render.js";
 import { fullDate} from "./main.js";
 // import { cards } from "./main.js";
 
@@ -65,14 +65,14 @@ export function fetchFunc(token) {
     return fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
       method: "GET",
       headers: {
-        // Authorization: `Bearer ${token}`,
-        Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
+        Authorization: token,
+        // Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
       },
     })
     .then((response) => {
       if (response.status === 401) {
         throw new Error("Нет авторизации");
-      };
+      }
       return response.json();
     })
 
@@ -85,7 +85,7 @@ export function fetchFunc(token) {
             text: comment.text,
             likesCounter: comment.likes,
             activeLike: false, 
-            class: "",
+            class: '',
           };
         })        
         cards = appComments;
@@ -93,28 +93,36 @@ export function fetchFunc(token) {
         renderCards(cards);
       })
       .then(() => {
-      articleElement.style.display = "none";
+      // articleElement.style.display = "none";
     })
       
    };
   //  console.log(cards);
-  fetchFunc();
+  fetchFunc(token);
 
       
   
 
-      export function fetchProm() {
+      export function fetchProm(token) {
 
       fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
       method: "POST",
       body: JSON.stringify({
-        name: nameInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
-        text: textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
+        name: nameInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;"),
+        text: textInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;"),
         // forceError: true,
       }),
       headers: {
-          // Authorization: `Bearer ${token}`,
-        Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
+          Authorization: token,
+        // Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
         },
     })
     .then((response) => {
@@ -137,8 +145,8 @@ export function fetchFunc(token) {
     .then((responseData) => {
   buttonElement.disabled = false;
   buttonElement.textContent = "Написать";
-  nameInputElement.value = "";
-  textInputElement.value = "";
+  nameInputElement.value = '';
+  textInputElement.value = '';
   fetchFunc();
   })
   .catch((error) => {
@@ -156,12 +164,11 @@ export function fetchFunc(token) {
   
   buttonElement.disabled = false;
   buttonElement.textContent = "Написать";
-  
 };
 
 export function loginUser({login, password}) {
   return fetch("https://wedev-api.sky.pro/api/user/login", {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify({
       login,
       password,

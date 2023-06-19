@@ -122,15 +122,14 @@ function fetchFunc(token) {
   return fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
     method: "GET",
     headers: {
-      // Authorization: `Bearer ${token}`,
-      Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck"
+      Authorization: token // Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
+
     }
   }).then(function (response) {
     if (response.status === 401) {
       throw new Error("Нет авторизации");
     }
 
-    ;
     return response.json();
   }).then(function (responseData) {
     var appComments = responseData.comments.map(function (comment) {
@@ -140,21 +139,20 @@ function fetchFunc(token) {
         text: comment.text,
         likesCounter: comment.likes,
         activeLike: false,
-        "class": ""
+        "class": ''
       };
     });
     exports.cards = cards = appComments;
     (0, _render.renderCards)(cards);
-  }).then(function () {
-    _render.articleElement.style.display = "none";
+  }).then(function () {// articleElement.style.display = "none";
   });
 }
 
 ; //  console.log(cards);
 
-fetchFunc();
+fetchFunc(_render.token);
 
-function fetchProm() {
+function fetchProm(token) {
   fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
     method: "POST",
     body: JSON.stringify({
@@ -163,8 +161,8 @@ function fetchProm() {
 
     }),
     headers: {
-      // Authorization: `Bearer ${token}`,
-      Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck"
+      Authorization: token // Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
+
     }
   }).then(function (response) {
     if (response.status === 400) {
@@ -183,8 +181,8 @@ function fetchProm() {
   }).then(function (responseData) {
     _render.buttonElement.disabled = false;
     _render.buttonElement.textContent = "Написать";
-    _render.nameInputElement.value = "";
-    _render.textInputElement.value = "";
+    _render.nameInputElement.value = '';
+    _render.textInputElement.value = '';
     fetchFunc();
   })["catch"](function (error) {
     if (response.status === 500) {
@@ -206,7 +204,7 @@ function loginUser(_ref) {
   var login = _ref.login,
       password = _ref.password;
   return fetch("https://wedev-api.sky.pro/api/user/login", {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify({
       login: login,
       password: password
