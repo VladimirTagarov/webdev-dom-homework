@@ -77,12 +77,17 @@ export function fetchFunc(token) {
   })
     .then((response) => {
       if (response.status === 401) {
+<<<<<<< HEAD
         throw new Error('Нет авторизации');
+=======
+        throw new Error("Нет авторизации");
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
       }
       return response.json();
     })
 
     .then((responseData) => {
+<<<<<<< HEAD
       const appComments = responseData.comments.map((comment) => {
         return {
           name: comment.author.name,
@@ -97,6 +102,24 @@ export function fetchFunc(token) {
       cards = appComments;
 
       renderCards(cards);
+=======
+        const appComments = responseData.comments.map((comment) => {
+          return {
+            name: comment.author.name,
+            date: fullDate(comment.date),
+            text: comment.text,
+            likesCounter: comment.likes,
+            activeLike: false, 
+            class: '',
+          };
+        })        
+        cards = appComments;
+        
+        renderCards(cards);
+      })
+      .then(() => {
+      // articleElement.style.display = "none";
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
     })
     .then(() => {
       //.style.display = "none";
@@ -105,6 +128,7 @@ export function fetchFunc(token) {
 //  console.log(cards);
 fetchFunc(token);
 
+<<<<<<< HEAD
 export function fetchProm(token) {
   fetch('https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments', {
     method: 'POST',
@@ -126,6 +150,33 @@ export function fetchProm(token) {
       // Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
     },
   })
+=======
+      
+  
+
+      export function fetchProm(token) {
+
+      fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
+      method: "POST",
+      body: JSON.stringify({
+        name: nameInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;"),
+        text: textInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;"),
+        // forceError: true,
+      }),
+      headers: {
+          Authorization: token,
+        // Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
+        },
+    })
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
     .then((response) => {
       if (response.status === 400) {
         alert('Имя и комментарий должны быть не короче 3 символов');
@@ -142,6 +193,7 @@ export function fetchProm(token) {
       }
     })
     .then((responseData) => {
+<<<<<<< HEAD
       buttonElement.disabled = false;
       buttonElement.textContent = 'Написать';
       nameInputElement.value = '';
@@ -165,6 +217,33 @@ export function fetchProm(token) {
 
 export function loginUser({ login, password }) {
   return fetch('https://wedev-api.sky.pro/api/user/login', {
+=======
+  buttonElement.disabled = false;
+  buttonElement.textContent = "Написать";
+  nameInputElement.value = '';
+  textInputElement.value = '';
+  fetchFunc();
+  })
+  .catch((error) => {
+    if (response.status === 500){
+      console.warn("error");
+    }
+    else if (response.status === 400){
+      console.warn("error");
+    }
+    else {    
+    alert('Кажется что-то пошло не так, проверьте интернет-соединение');
+    console.warn("error");
+    }
+  });
+  
+  buttonElement.disabled = false;
+  buttonElement.textContent = "Написать";
+};
+
+export function loginUser({login, password}) {
+  return fetch("https://wedev-api.sky.pro/api/user/login", {
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
     method: 'POST',
     body: JSON.stringify({
       login,

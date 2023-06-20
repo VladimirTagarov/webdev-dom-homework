@@ -145,7 +145,11 @@ function fetchFunc(token) {
     });
     exports.cards = cards = appComments;
     (0, _render.renderCards)(cards);
+<<<<<<< HEAD
   }).then(function () {//.style.display = "none";
+=======
+  }).then(function () {// articleElement.style.display = "none";
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
   });
 } //  console.log(cards);
 
@@ -153,8 +157,13 @@ function fetchFunc(token) {
 fetchFunc(_render.token);
 
 function fetchProm(token) {
+<<<<<<< HEAD
   fetch('https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments', {
     method: 'POST',
+=======
+  fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
+    method: "POST",
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
     body: JSON.stringify({
       name: _render.nameInputElement.value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;'),
       text: _render.textInputElement.value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;') // forceError: true,
@@ -180,7 +189,11 @@ function fetchProm(token) {
     }
   }).then(function (responseData) {
     _render.buttonElement.disabled = false;
+<<<<<<< HEAD
     _render.buttonElement.textContent = 'Написать';
+=======
+    _render.buttonElement.textContent = "Написать";
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
     _render.nameInputElement.value = '';
     _render.textInputElement.value = '';
     fetchFunc();
@@ -201,7 +214,11 @@ function fetchProm(token) {
 function loginUser(_ref) {
   var login = _ref.login,
       password = _ref.password;
+<<<<<<< HEAD
   return fetch('https://wedev-api.sky.pro/api/user/login', {
+=======
+  return fetch("https://wedev-api.sky.pro/api/user/login", {
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
     method: 'POST',
     body: JSON.stringify({
       login: login,

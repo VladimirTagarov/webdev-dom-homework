@@ -24,6 +24,7 @@ export const renderCards = (cards) => {
   const appEl = document.querySelector('.container');
 
   cardsHTML = cards
+<<<<<<< HEAD
     .map((card, index) => {
       const now = format(new Date(card.date), "yyyy-MM-dd hh.mm.ss");
       return `
@@ -58,12 +59,51 @@ export const renderCards = (cards) => {
         token = newToken;
       },
     });
+=======
+  .map((card, index) => {
+    return `
+      <ul id="list" class="comments">
+        <li data-comment="${card.text}" data-index="${index}" class="comment">
+        <div data-name="${card.name}" class="comment-header">
+          ${card.name}
+          <div>${card.date}</div>
+        </div>
+        <div data-comment="${card.text}" data-index="${index}" class="comment-body">
+      
+            ${card.text}
+      
+        </div>
+        <div class="comment-footer">
+          <div class="likes">
+            <span class="likes-counter">${card.likesCounter}</span>
+            <button class="like-button ${card.class}" data-index="${index}"></button>
+          </div>
+        </div>
+      </li>
+    </ul>`;
+  })
+  .join("");
+  
+  if(!token) {
+    console.log('Нет токена');
+    renderLoginComponent ({
+      appEl, 
+      setToken: (newToken) => {
+        token = newToken;
+      }, 
+    })
+return;
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
 
     return;
   }
 
   const appHTML = `
+<<<<<<< HEAD
               <h4 class="article" id="article">Пожалуйста, подождите комментарии загружаются</h4>
+=======
+              <h4 class="article" id="article">Пожалуйста, подождите комментарии загружаются</h4>       
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
               <ul id="list" class="comments">
               ${cardsHTML}
               </ul>

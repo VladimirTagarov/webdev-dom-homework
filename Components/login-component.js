@@ -30,8 +30,17 @@ export function renderLoginComponent({ appEl, setToken }) {
   `;
     appEl.innerHTML = appHTML;
 
+<<<<<<< HEAD
     // Записали элемент
     const authButton = document.getElementById('login-button');
+=======
+appEl.innerHTML = appHTML;
+
+const authButton = document.getElementById("login-button");
+authButton.addEventListener("click", () => {
+const login = document.getElementById("login-input").value;
+const password = document.getElementById("password-input").value;
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
 
     // Добавили обработчик
     authButton.addEventListener('click', () => {
@@ -62,3 +71,28 @@ export function renderLoginComponent({ appEl, setToken }) {
     });
   });
 }
+<<<<<<< HEAD
+=======
+
+if(!password) {
+alert('Введите логин');
+return;
+}
+
+loginUser({
+login: login,
+password: password,
+})
+.then((user) => {
+setToken (`Bearer ${user.user.token}`);
+fetchFunc();
+})
+.catch(error => {
+alert(error.message);
+})
+})
+
+})
+
+}
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
