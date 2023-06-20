@@ -1,10 +1,10 @@
 {
-  "name": "webdev-dom-homework",
+  "name": "peredelka",
   "version": "1.0.0",
   "description": "https://glebkaf.github.io/webdev-dom-homework/",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development --watch",
+    "dev": "webpack --mode development --watch"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +12,7 @@
     "date-fns": "^2.30.0"
   },
   "devDependencies": {
+    "webpack": "^5.87.0",
     "webpack-cli": "^5.1.4"
   }
 }

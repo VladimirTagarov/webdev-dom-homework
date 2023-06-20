@@ -9,7 +9,8 @@ var _api = require("./api.js");
 
 var _render = require("./render.js");
 
-// import { format } from "date-fns";
+var _dateFns = require("date-fns");
+
 // const buttonElement = document.getElementById('add-button');
 var listElement = document.getElementById('list'); // const nameInputElement = document.getElementById('name-input');
 // const textInputElement = document.getElementById('text-input');
@@ -22,6 +23,10 @@ var likesCounterElements = document.querySelectorAll('.likes-counter'); // const
 // export function setToken(newToken) {
 //  token = newToken;
 // };
+// const now = new Date();
+// console.log(format(now, "dd/MM/yyyy hh:mm"));
+// console.log(format(now, "MM-dd-yyyy hh:mm"));
+// console.log(format(now, "dd.MM.yyyy hh:mm:ss"));
 
 function fullDate(date) {
   var inputDate = new Date(date);
