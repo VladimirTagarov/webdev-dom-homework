@@ -1,6 +1,6 @@
 import { fetchFunc, fetchProm} from "./api.js";
 import { articleElement, renderCards } from "./render.js";
-// import { format } from "date-fns";
+import { format } from "date-fns";
 
 
 // const buttonElement = document.getElementById('add-button');
@@ -20,6 +20,10 @@ const likesCounterElements = document.querySelectorAll('.likes-counter');
 //  token = newToken;
 // };
 
+// const now = new Date();
+// console.log(format(now, "dd/MM/yyyy hh:mm"));
+// console.log(format(now, "MM-dd-yyyy hh:mm"));
+// console.log(format(now, "dd.MM.yyyy hh:mm:ss"));
 
 export function fullDate(date) {
   let inputDate = new Date(date);

@@ -11,7 +11,9 @@ exports.cards = exports.initAddLikesListeners = void 0;
 
 var _render = require("./render.js");
 
-var _main = require("./main.js");
+var _index = require("./index.js");
+
+var _dateFns = require("date-fns");
 
 // import { cards } from "./main.js";
 // const buttonElement = document.getElementById('add-button');
@@ -19,12 +21,16 @@ var listElement = document.getElementById('list'); // const nameInputElement = d
 // const textInputElement = document.getElementById('text-input');
 
 var likesCounterElements = document.querySelectorAll('.likes-counter');
-var cards = [];
+var cards = []; // const now = format(new Date(comment.date), "yyyy-MM-dd hh.mm.ss");
+// console.log(format(now, "dd/MM/yyyy hh:mm"));
+// console.log(format(now, "MM-dd-yyyy hh:mm"));
+// console.log(format(now, "dd.MM.yyyy hh:mm:ss"));
+
 exports.cards = cards;
 
 var initAddLikesListeners = function initAddLikesListeners() {
   var likesCounterElements = document.querySelectorAll('.likes-counter');
-  var addLikesElements = document.querySelectorAll(".like-button");
+  var addLikesElements = document.querySelectorAll('.like-button');
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
@@ -32,7 +38,7 @@ var initAddLikesListeners = function initAddLikesListeners() {
   try {
     var _loop = function _loop() {
       var addLikesElement = _step.value;
-      addLikesElement.addEventListener("click", function (event) {
+      addLikesElement.addEventListener('click', function (event) {
         var indexElement = addLikesElement.dataset.index;
         var currentElement = cards[indexElement];
         event.stopPropagation();
@@ -45,7 +51,6 @@ var initAddLikesListeners = function initAddLikesListeners() {
           currentElement["class"] = '-active-like';
         }
 
-        ;
         (0, _render.renderCards)(cards);
       });
     };
@@ -67,8 +72,6 @@ var initAddLikesListeners = function initAddLikesListeners() {
       }
     }
   }
-
-  ;
 };
 
 exports.initAddLikesListeners = initAddLikesListeners;
@@ -110,24 +113,21 @@ function initAddRecommentListeners() {
       }
     }
   }
-
-  ;
 }
 
-;
 initAddRecommentListeners();
 
 function fetchFunc(token) {
   // console.log(articleElement);
-  return fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
-    method: "GET",
+  return fetch('https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments', {
+    method: 'GET',
     headers: {
       Authorization: token // Authorization: "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
 
     }
   }).then(function (response) {
     if (response.status === 401) {
-      throw new Error("Нет авторизации");
+      throw new Error('Нет авторизации');
     }
 
     return response.json();
@@ -135,7 +135,8 @@ function fetchFunc(token) {
     var appComments = responseData.comments.map(function (comment) {
       return {
         name: comment.author.name,
-        date: (0, _main.fullDate)(comment.date),
+        // date: format(now, "yyyy-MM-dd hh.mm.ss"),
+        date: comment.date,
         text: comment.text,
         likesCounter: comment.likes,
         activeLike: false,
@@ -144,20 +145,28 @@ function fetchFunc(token) {
     });
     exports.cards = cards = appComments;
     (0, _render.renderCards)(cards);
+<<<<<<< HEAD
+  }).then(function () {//.style.display = "none";
+=======
   }).then(function () {// articleElement.style.display = "none";
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
   });
-}
+} //  console.log(cards);
 
-; //  console.log(cards);
 
 fetchFunc(_render.token);
 
 function fetchProm(token) {
+<<<<<<< HEAD
+  fetch('https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments', {
+    method: 'POST',
+=======
   fetch("https://webdev-hw-api.vercel.app/api/v2/vladimir-tagarov/comments", {
     method: "POST",
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
     body: JSON.stringify({
-      name: _render.nameInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
-      text: _render.textInputElement.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;") // forceError: true,
+      name: _render.nameInputElement.value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;'),
+      text: _render.textInputElement.value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;') // forceError: true,
 
     }),
     headers: {
@@ -169,41 +178,47 @@ function fetchProm(token) {
       alert('Имя и комментарий должны быть не короче 3 символов');
       throw new Error('Некорректный комментарий');
       _render.buttonElement.disabled = false;
-      _render.buttonElement.textContent = "Написать";
+      _render.buttonElement.textContent = 'Написать';
     } else if (response.status === 500) {
       alert('Сервер сломался, попробуйте еще раз');
       throw new Error('Ошибка сервера');
       _render.buttonElement.disabled = false;
-      _render.buttonElement.textContent = "Написать";
+      _render.buttonElement.textContent = 'Написать';
     } else {
       response.json();
     }
   }).then(function (responseData) {
     _render.buttonElement.disabled = false;
+<<<<<<< HEAD
+    _render.buttonElement.textContent = 'Написать';
+=======
     _render.buttonElement.textContent = "Написать";
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
     _render.nameInputElement.value = '';
     _render.textInputElement.value = '';
     fetchFunc();
   })["catch"](function (error) {
     if (response.status === 500) {
-      console.warn("error");
+      console.warn('error');
     } else if (response.status === 400) {
-      console.warn("error");
+      console.warn('error');
     } else {
       alert('Кажется что-то пошло не так, проверьте интернет-соединение');
-      console.warn("error");
+      console.warn('error');
     }
   });
   _render.buttonElement.disabled = false;
-  _render.buttonElement.textContent = "Написать";
+  _render.buttonElement.textContent = 'Написать';
 }
-
-;
 
 function loginUser(_ref) {
   var login = _ref.login,
       password = _ref.password;
+<<<<<<< HEAD
+  return fetch('https://wedev-api.sky.pro/api/user/login', {
+=======
   return fetch("https://wedev-api.sky.pro/api/user/login", {
+>>>>>>> 4cda18489e3df2492d529f2a98822327b8cf2ce5
     method: 'POST',
     body: JSON.stringify({
       login: login,
